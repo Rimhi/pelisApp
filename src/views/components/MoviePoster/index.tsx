@@ -13,7 +13,7 @@ export const MoviePoster = ({
       style={{
         width,
         height,
-        marginHorizontal:7,
+        marginHorizontal: 7,
       }}>
       <View
         style={{

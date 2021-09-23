@@ -1,8 +1,7 @@
 import React from 'react';
 import {
-  FlatList,
   ListRenderItemInfo,
-  Text,
+  ScrollView,
   useWindowDimensions,
   View,
 } from 'react-native';
@@ -14,42 +13,33 @@ import {Movie} from '../../../models/interfaces/movie';
 
 export const HomeScreen = () => {
   const {movies} = useMovie();
-  const {MoviePoster} = useComponets();
+  const {MoviePoster, HorizontalSlider} = useComponets();
   const {top} = useSafeAreaInsets();
   const {width: windowWidth, height: windowHeight} = useWindowDimensions();
   return (
-    <View style={{marginTop: top + 20}}>
-      {/*{movies[0] && <MoviePoster movie={movies[0]} />}*/}
-      <View style={{height: 470}}>
-        <Carousel
-          data={movies}
-          renderItem={({item}: ListRenderItemInfo<Movie>) => (
-            <MoviePoster movie={item} height={windowHeight / 1.9} width={300} />
-          )}
-          sliderWidth={windowWidth}
-          itemWidth={300}
+    <ScrollView>
+      <View style={{marginTop: top + 20}}>
+        {/*{movies[0] && <MoviePoster movie={movies[0]} />}*/}
+        <View style={{height: 470}}>
+          <Carousel
+            data={movies}
+            renderItem={({item}: ListRenderItemInfo<Movie>) => (
+              <MoviePoster
+                movie={item}
+                height={windowHeight / 1.9}
+                width={300}
+              />
+            )}
+            sliderWidth={windowWidth}
+            itemWidth={300}
+          />
+        </View>
+        <HorizontalSlider
+          height={(windowHeight * 30) / 100}
+          title={'Populares'}
+          movies={movies}
         />
       </View>
-      <View
-        style={{
-          height: (windowHeight * 30) / 100,
-        }}>
-        <Text
-          style={{
-            fontSize: 25,
-            marginBottom:10,
-          }}>
-          Populares
-        </Text>
-        <FlatList
-          data={movies}
-          renderItem={({item}: ListRenderItemInfo<Movie>) => (
-            <MoviePoster movie={item} width={120} height={190} />
-          )}
-          keyExtractor={movie => movie.id.toString()}
-          horizontal={true}
-        />
-      </View>
-    </View>
+    </ScrollView>
   );
 };
