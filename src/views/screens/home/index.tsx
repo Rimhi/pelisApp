@@ -24,7 +24,7 @@ export const HomeScreen = () => {
         <Carousel
           data={movies}
           renderItem={({item}: ListRenderItemInfo<Movie>) => (
-            <MoviePoster movie={item} />
+            <MoviePoster movie={item} height={windowHeight / 1.9} width={300} />
           )}
           sliderWidth={windowWidth}
           itemWidth={300}
@@ -32,19 +32,19 @@ export const HomeScreen = () => {
       </View>
       <View
         style={{
-          backgroundColor: 'red',
-          height: (windowHeight * 25) / 100,
+          height: (windowHeight * 30) / 100,
         }}>
         <Text
           style={{
             fontSize: 25,
+            marginBottom:10,
           }}>
           Populares
         </Text>
         <FlatList
           data={movies}
           renderItem={({item}: ListRenderItemInfo<Movie>) => (
-            <MoviePoster movie={item} />
+            <MoviePoster movie={item} width={120} height={190} />
           )}
           keyExtractor={movie => movie.id.toString()}
           horizontal={true}

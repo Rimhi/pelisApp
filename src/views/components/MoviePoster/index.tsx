@@ -1,15 +1,19 @@
 import React from 'react';
-import {Image, StyleSheet, useWindowDimensions, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import {MoviePosterPropsInterface} from '../../../models/interfaces/props/MoviePosterPropsInterface';
 
-export const MoviePoster = ({movie}: MoviePosterPropsInterface) => {
+export const MoviePoster = ({
+  movie,
+  height,
+  width,
+}: MoviePosterPropsInterface) => {
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-  const {height: windowHeight} = useWindowDimensions();
   return (
     <View
       style={{
-        width: 300,
-        height: windowHeight / 1.9,
+        width,
+        height,
+        marginHorizontal:7,
       }}>
       <View
         style={{
