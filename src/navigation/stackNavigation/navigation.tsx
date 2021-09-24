@@ -1,7 +1,8 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import {useViews} from '../../views';
-const Stack = createStackNavigator();
+import {RootStackParams} from '../../models/types/RootStackParams';
+const Stack = createStackNavigator<RootStackParams>();
 
 export const Navigation = () => {
   const {useScreen} = useViews();

@@ -19,6 +19,7 @@ export const HorizontalSlider = ({
         style={{
           fontSize: 25,
           marginBottom: 10,
+          marginLeft: 10,
         }}>
         {title}
       </Text>
