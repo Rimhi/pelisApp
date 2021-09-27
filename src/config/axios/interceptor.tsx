@@ -1,39 +1,26 @@
-import {useEffect} from 'react';
 import {axiosConfig} from './index';
 
-const useInterceptor = (store: any) => {
-  const handleRequestSuccess = (request: any) => {
-    // const state = store.getState();
-    // const { token } = state.user;
-    // request.headers["token"] = token; // Example 1
-    // request.headers.authorization = `Bearer ${token}`; // Example 2
-    //request.params.language = store.language || 'es-ES'; // Remove
-    request.headers['Content-Type'] = 'application/json';
-    request.headers.accept = 'application/json';
-    return request;
-  };
-  const handleRequestError = (error: any) => {
-    console.log(`REQUEST ERROR! => ${error}`);
-  };
+export const getOhtersViedo = (more: boolean) => {
 
-  const handleResponseSuccess = (response: any) => {
-    return response;
-  };
-
-  const handleResponseError = (error: any) => {
-    console.log(`RESPONSE ERROR! => ${error}`);
-  };
-
-  useEffect(() => {
-    axiosConfig.interceptors.request.use(
-      handleRequestSuccess,
-      handleRequestError,
-    );
-    axiosConfig.interceptors.response.use(
-      handleResponseSuccess,
-      handleResponseError,
-    );
-  }, []);
+  if (more) {
+    axiosConfig.interceptors.request.use(request => {
+      console.log(request.params);
+      request.params = {
+        api_key: '6fe592a1511f4afafa9e9e24fd0f2daa',
+        language: 'es-MX,es-ES',
+        //include_video_language: 'en-US',
+      };
+      console.log(request.params);
+      return request;
+    });
+  } else {
+    axiosConfig.interceptors.request.use(request => {
+      request.params = {
+        api_key: '6fe592a1511f4afafa9e9e24fd0f2daa',
+        language: 'es-MX',
+      };
+      return request;
+    });
+  }
 };
 
-export default useInterceptor;

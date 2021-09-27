@@ -3,7 +3,7 @@ import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import {MoviePosterPropsInterface} from '../../../models/interfaces/props/MoviePosterPropsInterface';
 import { useNavigation } from "@react-navigation/native";
 
-export const MoviePoster = ({
+const MoviePoster = ({
   movie,
   height,
   width,
@@ -48,3 +48,4 @@ const style = StyleSheet.create({
     borderRadius: 20,
   },
 });
+export default MoviePoster;

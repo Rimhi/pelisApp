@@ -1,4 +1,4 @@
-import {HomeScreen} from './movieHome';
+import HomeScreen from './movieHome';
 import {MovieDetailScreen} from './movieDetail';
 
 export const useScreen = () => ({

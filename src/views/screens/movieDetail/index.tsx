@@ -2,37 +2,54 @@ import React from 'react';
 import {
   Dimensions,
   Image,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
 import {MovieDetailProps} from '../../../models/interfaces/props/MovieDetailProps';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {useMovieDetail} from '../../../hooks/movieDetailHook';
+import {useComponents} from '../../components';
 
 const {height} = Dimensions.get('screen');
-export const MovieDetailScreen = ({route}: MovieDetailProps) => {
+export const MovieDetailScreen = ({route, navigation}: MovieDetailProps) => {
   const movie = route.params;
-  const {movieDetails, cast} = useMovieDetail({id: movie.id.toString()});
-  console.log(cast, '*******');
+  const {movieDetails, cast, movieVideo, similarVideo} = useMovieDetail({
+    id: movie.id.toString(),
+  });
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+  const {MovieDetailsComponent, BackButtonComponent} = useComponents();
+  const OS = Platform.OS;
   return (
-    <ScrollView>
-      <View style={style.imageContainer}>
-        <Image
-          source={{
-            uri,
-          }}
-          style={style.image}
-        />
-      </View>
-      <View style={style.titleContainer}>
-        <Text style={style.original_title}>{movie.original_title}</Text>
-        <Text style={style.title}>{movie.title}</Text>
-        <Icon name={'star-outline'} color={'grey'} size={30} />
-      </View>
-    </ScrollView>
+    <>
+      {OS === 'android' && (
+        <BackButtonComponent onPress={() => navigation.pop()} />
+      )}
+      <ScrollView>
+        <View style={style.imageContainer}>
+          <Image
+            source={{
+              uri,
+            }}
+            style={style.image}
+          />
+        </View>
+        <View style={style.titleContainer}>
+          <Text style={style.original_title}>{movie.original_title}</Text>
+          <Text style={style.title}>{movie.title}</Text>
+        </View>
+        <View>
+          <MovieDetailsComponent
+            movieDetail={movieDetails}
+            cast={cast}
+            videos={movieVideo}
+            similar={similarVideo}
+          />
+        </View>
+      </ScrollView>
+      {OS === 'ios' && <BackButtonComponent onPress={() => navigation.pop()} />}
+    </>
   );
 };
 const style = StyleSheet.create({

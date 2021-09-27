@@ -2,7 +2,8 @@ import {useConifg} from '../../../config';
 import {MovieApiResponse} from '../../../models/interfaces/movie';
 
 export const useMovieProviders = () => {
-  const {axiosConfig} = useConifg();
+  const {axiosConfig, getOhtersViedo} = useConifg();
+  //getOhtersViedo(false);
   const getMoviePlayingNowProvider = () => {
     return axiosConfig.get<MovieApiResponse>('/now_playing');
   };
